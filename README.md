@@ -1,2 +1,3 @@
 # DataK
-Simple custom data structure implementations
+
+A repository to explore custom data structure implementations.
