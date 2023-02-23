@@ -11,17 +11,21 @@ import kotlin.system.measureTimeMillis
 class TestAtomicSet {
 
     /*
-     * Throws `java.util.ConcurrentModificationException`
+     * Passes, the time it takes to complete is noticeable slower.
      */
     @Test
     fun `should be able to modify set`(): Unit = runBlocking {
-        val set = AtomicSet(1) // initial set
+        val set = AtomicSet(0) // initial set
         withContext(Dispatchers.Default) {
             massiveRun {
-                var item = set.last()
-                set.add(++item)
+                // synchronized is required
+                synchronized(set) {
+                    var item = set.last()
+                    set.add(++item)
+                }
             }
         }
+        println("result:$set")
     }
 
     suspend fun massiveRun(action: suspend () -> Unit) {

@@ -8,6 +8,10 @@ import java.util.concurrent.atomic.AtomicReference
 class AtomicSet<T>(vararg elements: T) {
     private val set = AtomicReference(elements.toMutableSet())
 
+    override fun toString(): String {
+        return set.get().toString()
+    }
+
     val size get() = set.get().size
 
     fun find(predicate: (T) -> Boolean): T? {
