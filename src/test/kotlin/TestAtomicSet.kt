@@ -2,6 +2,7 @@ package datak
 
 import kotlinx.coroutines.*
 import org.junit.jupiter.api.Test
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.system.measureTimeMillis
 
 /*
@@ -18,14 +19,24 @@ class TestAtomicSet {
         val set = AtomicSet(0) // initial set
         withContext(Dispatchers.Default) {
             massiveRun {
-                // synchronized is required
-                synchronized(set) {
+                synchronized(set) { // synchronized is required
                     var item = set.last()
                     set.add(++item)
                 }
             }
         }
         println("result:$set")
+    }
+
+    @Test
+    fun `test atomicInteger`(): Unit = runBlocking {
+        val atomicInteger = AtomicInteger(0)
+        withContext(Dispatchers.Default) {
+            massiveRun {
+                atomicInteger.getAndIncrement()
+            }
+        }
+        println("result:${atomicInteger.get()}")
     }
 
     suspend fun massiveRun(action: suspend () -> Unit) {
