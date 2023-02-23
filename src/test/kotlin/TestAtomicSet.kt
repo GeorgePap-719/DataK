@@ -11,7 +11,7 @@ import kotlin.system.measureTimeMillis
 class TestAtomicSet {
 
     /*
-     * Passes, the time it takes to complete is noticeable slower.
+     * Passes, but the time it takes to complete is noticeable slower.
      */
     @Test
     fun `should be able to modify set`(): Unit = runBlocking {
