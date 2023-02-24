@@ -3,7 +3,7 @@ package datak
 import java.util.concurrent.atomic.AtomicReference
 
 /**
- * Atomic set with lock-free reads and atomic modifications.
+ * Atomic mutableSet with lock-free reads and atomic modifications.
  */
 class AtomicSet<T>(vararg elements: T) {
     private val set = AtomicReference(elements.toMutableSet())
@@ -20,7 +20,8 @@ class AtomicSet<T>(vararg elements: T) {
         return null
     }
 
-    fun add(element: T) {
+    // Must not be called concurrently, e.g. always use synchronized(this) to call this function
+    fun addSynchronized(element: T) {
         set.getAndUpdate {
             it.add(element)
             it
