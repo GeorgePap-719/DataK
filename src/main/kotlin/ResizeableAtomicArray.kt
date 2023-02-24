@@ -5,8 +5,8 @@ import java.util.concurrent.atomic.AtomicReferenceArray
 /**
  * Atomic array with lock-free reads and synchronized modifications.
  *
- * Note: implementation is practically copy-pasted from `kotlinx.coroutines.internal`. It is used only for
- * testing purposes.
+ * Note: implementation is practically copy-pasted from `kotlinx.coroutines.internal` package.
+ * It is used only for testing purposes.
  */
 internal class ResizableAtomicArray<T>(initialLength: Int) {
     @Volatile
